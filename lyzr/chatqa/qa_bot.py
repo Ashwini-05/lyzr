@@ -11,6 +11,7 @@ from lyzr.utils.rag_utils import (
     webpage_rag,
     website_rag,
     youtube_rag,
+    github_repo_rag,
 )
 
 
@@ -179,6 +180,32 @@ class QABot:
     ) -> BaseQueryEngine:
         return youtube_rag(
             urls=urls,
+            system_prompt=system_prompt,
+            query_wrapper_prompt=query_wrapper_prompt,
+            embed_model=embed_model,
+            llm_params=llm_params,
+            vector_store_params=vector_store_params,
+            service_context_params=service_context_params,
+            query_engine_params=query_engine_params,
+        )
+
+    @staticmethod
+    def github_repo_qa(
+        git_repo_url: str,
+        relative_folder_path: Optional[str] = None,
+        required_exts: Optional[List[str]] = None,
+        system_prompt: str = None,
+        query_wrapper_prompt: str = None,
+        embed_model: Union[str, EmbedType] = "default",
+        llm_params: dict = None,
+        vector_store_params: dict = None,
+        service_context_params: dict = None,
+        query_engine_params: dict = None,
+    ) -> BaseQueryEngine:
+        return github_repo_rag(
+            git_repo_url=git_repo_url,
+            relative_folder_path=relative_folder_path,
+            required_exts=required_exts,
             system_prompt=system_prompt,
             query_wrapper_prompt=query_wrapper_prompt,
             embed_model=embed_model,
